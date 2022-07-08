@@ -1,0 +1,62 @@
+/* include */
+// #include<bits/stdc++.h>
+#include <algorithm>
+#include <bitset>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <deque>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <list>
+#include <map>
+#include <numeric>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <string>
+#include <utility>
+#include <vector>
+using namespace std;
+/* Macro */
+#define all(container) (container).begin(), (container).end()
+#define ctoi(char) int(char) - 48
+#define rep(i,n) for (int i = 0; (i) < (int)(n); ++ (i))
+#define rep3(i,m,n) for (int i = (m); (i) < (int)(n); ++ (i))
+#define per(i,n) for (int i = (int)(n) - 1; (i) >= 0; -- (i))
+#define per3(i,m,n) for (int i = (int)(n) - 1; (i) >= (int)(m); -- (i))
+/* Type */
+// #define int long long
+#define cauto const auto&
+typedef long long int64;
+typedef long double ld;
+/* Const */
+const double PI = acos(-1.0);
+const int64 MOD = 1000000007;
+const int64 _MOD = 998244353;
+
+
+signed main ()
+{
+  int n;
+  cin >> n;
+  string s = "";
+  
+  for (int i = 0; i < n; ++i)
+    {
+      char slime_colour;
+      cin >> slime_colour;
+      if (s.empty() or s.back() != slime_colour)
+	{
+	  s.push_back(slime_colour);
+	}
+    }
+
+  cout << s.size() << endl;
+  
+  return 0;
+}
