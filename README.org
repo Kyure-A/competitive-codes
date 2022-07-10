@@ -1,0 +1,9 @@
+#+TITLE: README
+#+AUTHOR: Kyure_A
+#+OPTIONS: toc:nil
+
+* これなに
+複数端末で AtCoder 用のコードを管理するためのリポジトリ
+
+* Public にする必要ある？
+ない
