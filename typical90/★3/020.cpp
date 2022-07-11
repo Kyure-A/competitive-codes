@@ -35,24 +35,28 @@ using namespace std;
 /* Type */
 // #define int long long
 #define cauto const auto&
-typedef long long int64;
 typedef long double ld;
 
 /* Const */
 const double PI = acos(-1.0);
-const int64 MOD = 1000000007;
-const int64 _MOD = 998244353;
+const long long  MOD = 1000000007;
+const long long _MOD = 998244353;
 
 
-// 解説AC なんかh,w が二個増えるとLEDが一つ増えるみたいな考えをしていた
+// pow は内部が float なの普通にトラップだろ
 
 signed main ()
 {
-  int h, w;
-  cin >> h >> w;
+  long long a;
+  int b, c;
+  cin >> a >> b >> c;
 
-  if (h == 1 or w == 1) cout << h * w << endl;
-  else cout << ((h + 1) / 2) * ((w + 1) / 2) << endl;
+  long long c_b = 1;
+
+  rep(i,b) c_b *= c;
+  
+  if (a < 1ll * c_b) cout << "Yes" << endl;
+  else cout << "No" << endl;
 
   return 0;
 }

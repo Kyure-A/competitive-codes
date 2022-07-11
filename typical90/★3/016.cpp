@@ -33,7 +33,7 @@ using namespace std;
 #define per3(i,m,n) for (int i = (int)(n) - 1; (i) >= (int)(m); -- (i))
 
 /* Type */
-// #define int long long
+#define int long long
 #define cauto const auto&
 typedef long long int64;
 typedef long double ld;
@@ -44,15 +44,25 @@ const int64 MOD = 1000000007;
 const int64 _MOD = 998244353;
 
 
-// 解説AC なんかh,w が二個増えるとLEDが一つ増えるみたいな考えをしていた
-
 signed main ()
 {
-  int h, w;
-  cin >> h >> w;
+  int n, a, b, c;
+  cin >> n >> a >> b >> c;
 
-  if (h == 1 or w == 1) cout << h * w << endl;
-  else cout << ((h + 1) / 2) * ((w + 1) / 2) << endl;
+  int answer = 10000;
+  
+  for (int i = 0; i <= 9999; ++i)
+    {
+      for (int j = 0; j <= 9999; ++j)
+	{
+	  if ((n - a * i - b * j) % c == 0 and (n - a * i - b * j) / c <= 9999 and (n - a * i - b * j) / c >= 0)
+	    {
+	      int k = (n - a * i - b * j) / c;
+	      answer = min(answer, i + j + k);
+	    }
+	}
+    }
 
-  return 0;
+  cout << answer << endl;
+      
 }

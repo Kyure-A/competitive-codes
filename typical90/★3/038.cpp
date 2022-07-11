@@ -35,24 +35,21 @@ using namespace std;
 /* Type */
 // #define int long long
 #define cauto const auto&
-typedef long long int64;
 typedef long double ld;
 
 /* Const */
 const double PI = acos(-1.0);
-const int64 MOD = 1000000007;
-const int64 _MOD = 998244353;
+const long long  MOD = 1000000007;
+const long long _MOD = 998244353;
 
-
-// 解説AC なんかh,w が二個増えるとLEDが一つ増えるみたいな考えをしていた
 
 signed main ()
 {
-  int h, w;
-  cin >> h >> w;
-
-  if (h == 1 or w == 1) cout << h * w << endl;
-  else cout << ((h + 1) / 2) * ((w + 1) / 2) << endl;
-
+  unsigned long long a, b;
+  cin >> a >> b;
+  
+  if (1e18 < a / gcd(a, b) * b * 1ull) cout << "Large" << endl;
+  else cout << a / gcd(a, b) * b * 1ull << endl;
+  
   return 0;
 }

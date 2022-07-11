@@ -44,15 +44,9 @@ const int64 MOD = 1000000007;
 const int64 _MOD = 998244353;
 
 
-// 解説AC なんかh,w が二個増えるとLEDが一つ増えるみたいな考えをしていた
-
 signed main ()
 {
-  int h, w;
-  cin >> h >> w;
-
-  if (h == 1 or w == 1) cout << h * w << endl;
-  else cout << ((h + 1) / 2) * ((w + 1) / 2) << endl;
+  
 
   return 0;
 }

@@ -35,24 +35,48 @@ using namespace std;
 /* Type */
 // #define int long long
 #define cauto const auto&
-typedef long long int64;
 typedef long double ld;
 
 /* Const */
 const double PI = acos(-1.0);
-const int64 MOD = 1000000007;
-const int64 _MOD = 998244353;
+const long long  MOD = 1000000007;
+const long long _MOD = 998244353;
 
-
-// 解説AC なんかh,w が二個増えるとLEDが一つ増えるみたいな考えをしていた
 
 signed main ()
 {
-  int h, w;
-  cin >> h >> w;
+  int n, q;
+  cin >> n >> q;
+  
+  vector<int> a(n);
+  rep(i,n) cin >> a[i];
 
-  if (h == 1 or w == 1) cout << h * w << endl;
-  else cout << ((h + 1) / 2) * ((w + 1) / 2) << endl;
+  int shifted = 0;
+  
+  while (q--)
+    {
+      int t, x, y;
+      cin >> t >> x >> y;
+      x--; y--;
+
+      if (t == 1)
+	{
+	  swap(a[(x + n - shifted) % n], a[(y + n - shifted) % n]);
+	}
+      
+      else if (t == 2)
+	{
+	  shifted++;
+	  shifted %= n;
+	}
+      
+      else if (t == 3)
+	{
+	  // マジでこういう作業回数をメモしてずらしていくやつの式が思いつかない
+	  cout << a[(x + n - shifted) % n] << endl;
+	}
+      
+    }
 
   return 0;
 }
