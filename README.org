@@ -9,15 +9,9 @@
 ** Public にする必要ある？
 ない
 
-* Todo list
-
-** TODO typical90 ☆2,3 を7月下旬までにすべて解く
+* Memo
 https://atcoder.jp/contests/typical90/tasks
-
-** TODO Educational DP Contest を毎日1問は解く
 https://atcoder.jp/contests/dp
-
-** TODO 二分探索, bit 全探索の練習をする
 https://atcoder-tags.herokuapp.com/tags/Searching
 
 
