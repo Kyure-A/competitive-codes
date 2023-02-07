@@ -22,20 +22,25 @@ const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
 
+// reference:
+// https://atcoder.jp/contests/agc040/submissions/37740679
+// https://atcoder.jp/contests/agc040/submissions/37736509
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  string s;
+  cin >> s;
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
-    }
+  int n = s.length();
+  i64 answer = 0;
+  
+  vector<int> leftparen(n, 0);
+  vector<int> rightparen(n, 0);
+  rep(i, n) if (s[i] == '<') leftparen[i + 1] = leftparen[i] + 1;
+  per(i, n) if (s[i] == '>') rightparen[i] = rightparen[i + 1] + 1;
+  rep(i, n) answer += max(leftparen[i], rightparen[i]);
+
+  cout << answer << endl;
 
   return 0;
 }

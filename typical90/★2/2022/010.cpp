@@ -44,45 +44,57 @@ const int64 MOD = 1000000007;
 const int64 _MOD = 998244353;
 
 
-bool validp (string s)
-{
-  int n = s.size();
-  int score = 0;
-  
-  for (int i = 0; i < n; ++i)
-    {
-      if (s[i] == '(') score++;
-      else if (s[i] == ')') score--;
-
-      if (score < 0) return false;
-    }
-
-  if (score != 0) return false;
-  else return true;
-  
-}
-  
 signed main ()
 {
-  int n; cin >> n;
+  int n;
+  cin >> n;
+  vector<pair<int,int>> cp(n + 1,{0, 0});
 
-  vector<string> paren;
-  
-  for (int bit = 0; bit < (1 << n); ++bit)
+  rep(i,n) // 1-indexed
     {
-      string s = "";
-      
-      for (int i = n - 1; i >= 0; --i) // 最上位 bit から見る
-	{
-	  if (!(bit & (1 << i))) s.push_back('(');
-	  else s.push_back(')');
-	}
-
-      paren.push_back(s);
-      
+      int c,p;
+      cin >> c >> p;
+      cp.at(i + 1).first = c;
+      cp.at(i + 1).second = p;
     }
 
-  for (auto i : paren) if (validp(i)) cout << i << endl;
+  int q;
+  cin >> q;
+
+  // 組の累積和
+  vector<int> class1(n + 1, 0);
+  vector<int> class2(n + 1, 0);
+
+  for (int i = 1; i <= n; ++i)
+    {
+      class1.at(i) = class1.at(i - 1);
+      class2.at(i) = class2.at(i - 1);
+      
+      if (cp.at(i).first == 1)
+	  {
+	    class1.at(i) += cp.at(i).second;
+	  }
+
+      else if (cp.at(i).first == 2)
+	{
+	  class2.at(i) += cp.at(i).second;
+	}
+      
+    }
+  
+  
+  while (q--) // O(N + Q)
+    {
+      int l,r;
+      cin >> l >> r;
+
+      int a, b;
+      a = class1.at(r) - class1.at(l - 1);
+      b = class2.at(r) - class2.at(l - 1);
+
+      cout << a << " " << b << endl;
+      
+    }
 
   return 0;
 }

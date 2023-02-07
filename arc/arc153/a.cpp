@@ -25,38 +25,39 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int n; cin >> n;
-  vector<int> c(n + 1);
-  vector<int> p(n + 1);
+  int n;
+  cin >> n;
 
-  rep(i, n) cin >> c[i + 1] >> p[i + 1];
+  vector<string> zorome = {"00", "11", "22", "33", "44", "55", "66", "77", "88", "99"};
+  vector<string> itimoji = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-  vector<int> sum_1(n + 1);
-  vector<int> sum_2(n + 1);
+  vector<long> good_number;
 
-  for (int i = 0; i < n; ++i)
+  for (int i = 1; i <= 9; ++i)
     {
-      if (c[i + 1] == 1)
+      for (int j = 0; j <= 9; ++j)
 	{
-	  sum_1[i + 1] = sum_1[i] + p[i + 1];
-	  sum_2[i + 1] = sum_2[i];
+	  for (int k = 0; k <= 9; ++k)
+	    {
+	      for (int l = 0; l <= 9; ++l)
+		{
+		  for (int m = 0; m <= 9; ++m)
+		    {
+		      for (int o = 0; o <= 9; ++o)
+			{
+			  string number = zorome[i] + itimoji[j] + itimoji[k] + zorome[l] + itimoji[m] + itimoji[o] + itimoji[m];
+			  long num_to_str = stol(number);
+			  good_number.push_back(num_to_str);
+			}
+		    }
+		}
+	    }
 	}
-
-      else if (c[i + 1] == 2)
-	{
-	  sum_1[i + 1] = sum_1[i];
-	  sum_2[i + 1] = sum_2[i] + p[i + 1];
-	}
+      
     }
 
-  int q; cin >> q;
-  q++;
-  while (--q)
-    {
-      int l, r; cin >> l >> r;
-      cout << sum_1[r] - sum_1[l - 1] << " " <<  sum_2[r] - sum_2[l - 1] << endl;
-    }
-  
+  sort(good_number.begin(), good_number.end());
 
+  cout << good_number[n + 1] << endl;
   return 0;
 }

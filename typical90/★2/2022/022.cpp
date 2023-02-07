@@ -43,46 +43,15 @@ const double PI = acos(-1.0);
 const int64 MOD = 1000000007;
 const int64 _MOD = 998244353;
 
-
-bool validp (string s)
-{
-  int n = s.size();
-  int score = 0;
-  
-  for (int i = 0; i < n; ++i)
-    {
-      if (s[i] == '(') score++;
-      else if (s[i] == ')') score--;
-
-      if (score < 0) return false;
-    }
-
-  if (score != 0) return false;
-  else return true;
-  
-}
-  
+// euclidean algorithm
 signed main ()
 {
-  int n; cin >> n;
+  int64 a, b, c;
+  cin >> a >> b >> c;
 
-  vector<string> paren;
-  
-  for (int bit = 0; bit < (1 << n); ++bit)
-    {
-      string s = "";
-      
-      for (int i = n - 1; i >= 0; --i) // 最上位 bit から見る
-	{
-	  if (!(bit & (1 << i))) s.push_back('(');
-	  else s.push_back(')');
-	}
+  int64 r = gcd(a, gcd(b, c));
 
-      paren.push_back(s);
-      
-    }
-
-  for (auto i : paren) if (validp(i)) cout << i << endl;
+  cout << (a / r - 1) + (b / r - 1) + (c / r - 1) << endl;
 
   return 0;
 }

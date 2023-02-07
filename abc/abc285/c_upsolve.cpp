@@ -25,17 +25,25 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  string s; cin >> s;
+  int n = s.size();
+  map<char, int> alphabet;
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+  int index = 0;
+  
+  for (auto i : {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'})
+    {
+      alphabet[i] = index;
+      index++;
     }
 
+  long long answer = 0;
+
+  reverse(all(s));
+
+  for (int i = n - 1; 0 <= i; --i) answer += (alphabet[s[i]] + 1) * (int)pow(26, i);
+
+  cout << answer << endl;
+  
   return 0;
 }

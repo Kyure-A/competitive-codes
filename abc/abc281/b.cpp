@@ -25,38 +25,43 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int n; cin >> n;
-  vector<int> c(n + 1);
-  vector<int> p(n + 1);
+  string s;
+  cin >> s;
+  string answer = "No";
+  string nagasa6 = "";
+  nagasa6 += s[1];
+  nagasa6 += s[2];
+  nagasa6 += s[3];
+  nagasa6 += s[4];
+  nagasa6 += s[5];
+  nagasa6 += s[6];
+  bool flag1 = false;
+  bool flag2 = false;
+  bool flag3 = false;
+  bool flag4 = false;
 
-  rep(i, n) cin >> c[i + 1] >> p[i + 1];
+  if (s.size() == 8) flag1 = true;
 
-  vector<int> sum_1(n + 1);
-  vector<int> sum_2(n + 1);
-
-  for (int i = 0; i < n; ++i)
+  for (auto i : {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'})
     {
-      if (c[i + 1] == 1)
+      if (s[0] == i) 
 	{
-	  sum_1[i + 1] = sum_1[i] + p[i + 1];
-	  sum_2[i + 1] = sum_2[i];
+	  flag2 = true;
 	}
 
-      else if (c[i + 1] == 2)
+      if (s[7] == i)
 	{
-	  sum_1[i + 1] = sum_1[i];
-	  sum_2[i + 1] = sum_2[i] + p[i + 1];
+	  flag3 = true;
 	}
     }
 
-  int q; cin >> q;
-  q++;
-  while (--q)
+  for (int i = 100000; i <= 999999; ++i)
     {
-      int l, r; cin >> l >> r;
-      cout << sum_1[r] - sum_1[l - 1] << " " <<  sum_2[r] - sum_2[l - 1] << endl;
+      if (to_string(i) == nagasa6) flag4 = true;
     }
+
+  if (flag1 && flag2 && flag3 && flag4) cout << "Yes" << endl;
+  else cout << "No" << endl;
   
-
   return 0;
 }

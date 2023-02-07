@@ -25,16 +25,11 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
+  int n; cin >> n;
+  for (int i = 0; i < n; ++i)
     {
-      int t, x; cin >> t >> x;
-
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+      int a, b; cin >> a >> b;
+      cout << a + b << endl;
     }
 
   return 0;

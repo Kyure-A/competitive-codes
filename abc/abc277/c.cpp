@@ -22,41 +22,37 @@ const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
 
+// editorial
 
 signed main ()
 {
-  int n; cin >> n;
-  vector<int> c(n + 1);
-  vector<int> p(n + 1);
-
-  rep(i, n) cin >> c[i + 1] >> p[i + 1];
-
-  vector<int> sum_1(n + 1);
-  vector<int> sum_2(n + 1);
-
+  int n;
+  cin >> n;
+  map<int, vector<int>> graph;
   for (int i = 0; i < n; ++i)
     {
-      if (c[i + 1] == 1)
-	{
-	  sum_1[i + 1] = sum_1[i] + p[i + 1];
-	  sum_2[i + 1] = sum_2[i];
-	}
-
-      else if (c[i + 1] == 2)
-	{
-	  sum_1[i + 1] = sum_1[i];
-	  sum_2[i + 1] = sum_2[i] + p[i + 1];
-	}
+      int a, b; cin >> a >> b;
+      graph[a].emplace_back(b);
+      graph[b].emplace_back(a);
     }
 
-  int q; cin >> q;
-  q++;
-  while (--q)
+  // 頂点番号が 1 から始まっていた場合は 正規化 (デクリメントして 0-indexed に) することを忘れない！
+
+  queue<int> que; // first in first out
+  set<int> S;
+  S.insert(1);
+  que.push(1); // 初期化
+
+  // Start
+  while (!que.empty())
     {
-      int l, r; cin >> l >> r;
-      cout << sum_1[r] - sum_1[l - 1] << " " <<  sum_2[r] - sum_2[l - 1] << endl;
-    }
-  
+      auto v = que.front(); que.pop(); // v に実質的に queue の先頭を移動
 
+      // v に隣接している頂点をすべて調べる
+      for (auto near_v : graph[v]) if (!S.count(near_v)) {S.insert(near_v); que.push(near_v);}
+    }
+
+  cout << *S.rbegin() << "\n";
+  
   return 0;
 }

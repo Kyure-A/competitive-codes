@@ -22,20 +22,26 @@ const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
 
+// ランレングス圧縮みたいなことして 0 と 1 の数を数えてシフトしまくって 0 と 1 が右左にシフトして交代するような点を見つけて a_1  を b に push する
+
+vector<pair<char, int>> encode(const string& str) {
+  int n = (int)str.size();
+  vector<pair<char, int>> ret;
+  for (int l = 0; l < n;) {
+    int r = l + 1;
+    for (; r < n && str[l] == str[r]; r++) {};
+    ret.push_back({str[l], r - l});
+    l = r;
+  }
+  return ret;
+}
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
-
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
-    }
+  int n, m;
+  cin >> n >> m;
+  
+  
 
   return 0;
 }

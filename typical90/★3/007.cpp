@@ -12,7 +12,7 @@ using namespace std;
 #define per3(i,m,n) for (int i = (int)(n) - 1; (i) >= (int)(m); -- (i))
 
 /* Type */
-// #define int long long
+#define int long long
 #define cauto const auto&
 typedef long long i64;
 typedef long double ld;
@@ -25,17 +25,26 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
+  int n; cin >> n;
+  vector<int> classroom(n); // A_i
+  rep(i, n) cin >> classroom[i];
+  sort(all(classroom));
   int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  vector<int> student(q); // B_i
+  rep(i, q) cin >> student[i];
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+  vector<int> ans(q);
+
+  for (int j = 0; j < q; ++j)
+    {
+      auto x = (lower_bound(classroom.begin(), classroom.end(), student[j]));
+      long long a, b = 1e12;
+      if (x != classroom.end()) a = min(a, abs(student[j] - *x));
+      if (x != classroom.begin()) b = min(b, abs(student[j] - *prev(x)));
+      ans[j] = min(a, b);
     }
 
+  for (auto a : ans) cout << a << endl;
+  
   return 0;
 }

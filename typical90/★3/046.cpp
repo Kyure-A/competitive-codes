@@ -22,41 +22,55 @@ const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
 
+// 絶対に TLE になるであろう解法を書いてみる
+// たぶんというか確実に半分全列挙
 
 signed main ()
 {
   int n; cin >> n;
-  vector<int> c(n + 1);
-  vector<int> p(n + 1);
+  vector<int> a(n), b(n), c(n);
+  vector<int> a_count(46 + 1, 0), b_count(46 + 1, 0), c_count(46 + 1, 0);
 
-  rep(i, n) cin >> c[i + 1] >> p[i + 1];
-
-  vector<int> sum_1(n + 1);
-  vector<int> sum_2(n + 1);
+  // input
+  
+  for (int i = 0; i < n; ++i)
+    {
+      int A; cin >> A;
+      a[i] = A % 46;
+      a_count[a[i]]++;
+    }
 
   for (int i = 0; i < n; ++i)
     {
-      if (c[i + 1] == 1)
-	{
-	  sum_1[i + 1] = sum_1[i] + p[i + 1];
-	  sum_2[i + 1] = sum_2[i];
-	}
-
-      else if (c[i + 1] == 2)
-	{
-	  sum_1[i + 1] = sum_1[i];
-	  sum_2[i + 1] = sum_2[i] + p[i + 1];
-	}
+      int B; cin >> B;
+      b[i] = B % 46;
+      b_count[b[i]]++;
     }
 
-  int q; cin >> q;
-  q++;
-  while (--q)
+  for (int i = 0; i < n; ++i)
     {
-      int l, r; cin >> l >> r;
-      cout << sum_1[r] - sum_1[l - 1] << " " <<  sum_2[r] - sum_2[l - 1] << endl;
+      int C; cin >> C;
+      c[i] = C % 46;
+      c_count[c[i]]++;
     }
-  
 
+  // solve
+
+  long long count = 0;
+  
+  for (int i = 0; i <= 46; ++i)
+    {
+      for (int j = 0; j <= 46; ++j)
+	{
+	  for (int k = 0; k <= 46; ++k)
+	    {
+	      if ((i + j + k) % 46 == 0) count += a_count[i] * b_count[j] * c_count[k];
+	    }
+	}
+      
+    }
+
+  cout << count << endl;
+  
   return 0;
 }

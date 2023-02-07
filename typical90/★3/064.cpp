@@ -22,20 +22,32 @@ const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
 
+// editorial https://twitter.com/e869120/status/1403483256234799105
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
+  int n, q; cin >> n >> q;
+  vector<int> a(n + 1); rep(i, n) cin >> a[i + 1];
+  vector<int> b(n + 1); 
+  vector<int> l(q + 1), r(q + 1), v(q + 1); rep(i, q) cin >> l[i + 1] >> r[i + 1] >> v[i + 1]; 
+  
+  long long answer = 0;
+  
+  for (int i = 1; i < n; ++i)
     {
-      int t, x; cin >> t >> x;
-
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+      b[i] = a[i + 1] - a[i];
+      answer += abs(b[i]);
     }
 
+  for (int i = 1; i <= q; ++i)
+    {
+      long long mae = abs(b[l[i] - 1]) + abs(b[r[i]]); // 操作前での値を記録
+      if (l[i] >= 2) b[l[i] - 1] += v[i];
+      if (r[i] <= n - 1) b[r[i]] -= v[i];
+      long long ato = abs(b[l[i] - 1]) + abs(b[r[i]]);
+      answer += (ato - mae);
+      cout << answer << endl;
+    }
+  
   return 0;
 }

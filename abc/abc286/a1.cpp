@@ -25,17 +25,15 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  int n, p, q, r, s; cin >> n >> p >> q >> r >> s;
+  p--; q--; r--; s--;
+  
+  vector<int> a(n);
+  rep(i, n) cin >> a[i];
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
-    }
+  swap_ranges(a.begin() + p, a.begin() + q + 1, a.begin() + r);
+
+  for (auto v : a) cout << v << endl;
 
   return 0;
 }

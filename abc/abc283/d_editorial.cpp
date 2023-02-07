@@ -22,20 +22,44 @@ const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
 
+// korega "DFS" rasii desu
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
+  string s;
+  cin >> s;
+  set<string> x;
+  stack<string> y;
+  int n = s.length();
+  string answer = "Yes";
+  
+  for (int i = 0; i < n; ++i)
     {
-      int t, x; cin >> t >> x;
-
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+      if (s.substr(i, 1) == "(") y.push("");
+      
+      else if (s.substr(i, 1) == ")")
+	{
+	  x.erase(y.top());
+	  y.pop();
+	}
+      
+      else
+	{
+	  if (x.count(s.substr(i, 1)) == 1)
+	    {
+	      answer = "No";
+	      break;
+	    }
+	  
+	  else
+	    {
+	      x.insert(s.substr(i, 1));
+	      y.push(s.substr(i, 1));
+	    }
+	}
     }
+
+  cout << answer << endl;
 
   return 0;
 }

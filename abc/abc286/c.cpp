@@ -12,7 +12,6 @@ using namespace std;
 #define per3(i,m,n) for (int i = (int)(n) - 1; (i) >= (int)(m); -- (i))
 
 /* Type */
-// #define int long long
 #define cauto const auto&
 typedef long long i64;
 typedef long double ld;
@@ -23,19 +22,38 @@ const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
 
 
+#define int long long
+
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
+  int n, a, b; cin >> n >> a >> b;
+  string s; cin >> s;
+  vector<string> s_val(n + 1); 
+  s_val[0] = s;
+  
+  for (int i = 1; i <= n; ++i)
     {
-      int t, x; cin >> t >> x;
-
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+      s_val[i] = s_val[i - 1].substr(1) + s_val[i - 1].substr(0, 1);
     }
+  
+  long long score = 1000000000000;
+  int b_count = 0;
+  
+  for (int i = 0; i <= n; ++i)
+    {
+      for (int j = 0; j < n / 2; ++j)
+	{
+	  if (s_val[i][j] != s_val[i][n - 1 - j])
+	    {
+	      b_count++;
+	    }
+	}
+
+      score = min(score, (b * b_count + a * i)); 
+      
+    }
+
+  cout << score << endl;
 
   return 0;
 }

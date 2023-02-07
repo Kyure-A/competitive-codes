@@ -25,17 +25,17 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  int n; cin >> n;
+  vector<int> a(n); rep(i, n) cin >> a[i];
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+  int answer = -1;
+  
+  for (int i = 0; i < n - 1; ++i)
+    {
+      answer = max(answer, a[i + 1] - a[i]);
     }
+
+  cout << answer << endl;
 
   return 0;
 }

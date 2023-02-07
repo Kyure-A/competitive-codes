@@ -25,17 +25,32 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
+  int n, m; cin >> n >> m;
+  vector<vector<int>> Graph(n);
+  
+  for (int i = 0; i < m; ++i)
     {
-      int t, x; cin >> t >> x;
-
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+      int a, b; cin >> a >> b;
+      --a;
+      --b;
+      Graph[a].push_back(b);
+      Graph[b].push_back(a);
     }
+
+  int result = 0;
+  
+  for (int v = 0; v < n; ++v)
+    {
+      int count = 0;
+      for (auto near_v : Graph[v])
+	{
+	  if (v > near_v) count++; 
+	}
+
+      if (count == 1) result++;
+    }
+
+  cout << result << endl;
 
   return 0;
 }

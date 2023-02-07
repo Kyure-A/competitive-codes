@@ -25,17 +25,25 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  int n; cin >> n;
+  // student's position
+  vector<int> a(n);
+  rep(i, n) cin >> a[i];
+  // school position
+  vector<int> b(n);
+  rep(i, n) cin >> b[i];
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+  sort(all(a));
+  sort(all(b));
+
+  int sum = 0;
+  
+  for (int i = 0; i < n; ++i)
+    {
+      sum += abs(a[i] - b[i]);
     }
+
+  cout << sum << endl;
 
   return 0;
 }

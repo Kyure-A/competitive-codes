@@ -25,17 +25,43 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
+  string s;
+  cin >> s;
+
+  int n = s.length();
+
+  map<string, int> ball;
+  vector<int> count_leftparen(n, 0), count_rightparen(n, 0);
+  
+  string answer = "Yes";
+  
+  for (int i = 0; i < n; ++i)
     {
-      int t, x; cin >> t >> x;
-
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+      if (s.substr(i, 1) != "(" or s.substr(i, 1) != ")")
+	{
+	  ball[s[i]]++;
+	  s[i]
+	    if (ball[s[i]] > 1)
+	    {
+	      answer = "No";
+	      break;
+	    }
+	}
+      
+      else if (s.substr(i, 1) == ")")
+	{
+	  int current_i = i;
+	  per(k, current_i)
+	    {
+	      if (s.substr(i, 1) == "(")
+		{
+		  rep(j, k) if (s.substr(i, 1) != "(" or s.substr(i, 1) != ")") s[j] = ""
+										  }
+	    }
+	  
+	  // per de gyakujyun ni tannsaku site s[i] wo kakutei site ball wo toridasu
+	}
     }
-
+  
   return 0;
 }

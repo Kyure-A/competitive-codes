@@ -25,17 +25,28 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  int n; cin >> n;
+  vector<vector<int>> dp(n + 1, vector<int>(3)); // dp[i][j] .. [i] = num, [j] = a(0) or b(1) or c(2);
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+  for (int i = 1; i <= n; ++i)
+    {
+      int a, b, c; cin >> a >> b >> c;
+      
+      if (i == 1)
+	{
+	  dp[i][0] = a;
+	  dp[i][1] = b;
+	  dp[i][2] = c;
+	}
+      else
+	{
+	  dp[i][0] = max(dp[i - 1][1] + a, dp[i - 1][2] + a);
+	  dp[i][1] = max(dp[i - 1][0] + b, dp[i - 1][2] + b);
+	  dp[i][2] = max(dp[i - 1][0] + c, dp[i - 1][1] + c);
+	}
     }
+
+  cout << max(dp[n][0], max(dp[n][1], dp[n][2])) << endl;
 
   return 0;
 }

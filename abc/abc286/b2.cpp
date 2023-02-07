@@ -25,16 +25,24 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  int n; cin >> n;
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
+  char memory = '0';
+  
+  for (int i = 0; i < n; ++i)
+    {
+      char s; cin >> s;
+      if (memory == 'n' && s == 'a')
+	{
+	  cout << 'y' << 'a';
+	  memory = 'a';
+	}
+
+      else
+	{
+	  cout << s;
+	  memory = s;
+	}
     }
 
   return 0;

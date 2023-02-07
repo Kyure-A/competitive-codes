@@ -5,7 +5,7 @@ using namespace std;
 
 /* Macro */
 #define all(container) (container).begin(), (container).end()
-#define ctoi(char) int(char) - 48
+#define ctoi(char) int(char) - '0'
 #define rep(i,n) for (int i = 0; (i) < (int)(n); ++ (i))
 #define rep3(i,m,n) for (int i = (m); (i) < (int)(n); ++ (i))
 #define per(i,n) for (int i = (int)(n) - 1; (i) >= 0; -- (i))
@@ -13,8 +13,9 @@ using namespace std;
 
 /* Type */
 // #define int long long
-#define cauto const auto&
 typedef long long i64;
+typedef long long int64;
+typedef long long ll;
 typedef long double ld;
 
 /* Const */
@@ -25,17 +26,12 @@ const long long _MOD = 998244353;
 
 signed main ()
 {
-  int q; cin >> q;
-  deque<int> deck;
-  q++;
-  while (--q)
-    {
-      int t, x; cin >> t >> x;
+  cin.tie(0)->sync_with_stdio(0);
 
-      if (t == 1) deck.push_front(x);
-      else if (t == 2) deck.push_back(x);
-      else if (t == 3) cout << deck[x - 1] << endl;
-    }
+  int n; cin >> n;
+  if (n > 100 or (int)pow(2, n) > (int)pow(n, 2)) cout << "Yes" << endl; 
+  else cout << "No" << endl;
+  
 
   return 0;
 }
