@@ -1,6 +1,6 @@
 /* ------------------------------ include ------------------------------ */
 #include <bits/stdc++.h>
-// #include <atcoder/all>
+// #include <atcoder/modint>
 // #include <boost/multiprecision/cpp_int.hpp>
 /* ------------------------------  using  ------------------------------ */
 using namespace std;
@@ -14,37 +14,45 @@ using namespace std;
 #define per(i,n) for (int i = (int)(n) - 1; (i) >= 0; -- (i))
 #define per3(i,m,n) for (int i = (int)(n) - 1; (i) >= (int)(m); -- (i))
 // #define int long long
+/* ------------------------------ function ------------------------------*/
+template<typename T> inline bool chmax(T &a, T b) { return ((a < b) ? (a = b, true) : (false)); }
+template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, true) : (false)); }
+template<typename T> T lcm(T a, T b) {return a / gcd(a, b) * b;}
 /* ------------------------------  const  ------------------------------ */
-const double PI = acos(-1.0);
-const long long  MOD = 1000000007;
-const long long _MOD = 998244353;
+constexpr double PI = acos(-1.0);
+constexpr int dx[4] = {1, 0, -1, 0};
+constexpr int dy[4] = {0, 1, 0, -1};
+constexpr long long  MOD = 1000000007;
+constexpr long long _MOD = 998244353;
+/* ------------------------------   code  ------------------------------ */
 
-/* ------------------------------  code   ------------------------------ */
+signed Mex(set<int> seq)
+{
+  int seq_max = *seq.rbegin();
 
-// editorial
+  for (int i = 0; i < seq_max; ++i)
+    {
+      if (seq.find(i) == seq.end()) return i;
+    }
+
+  return seq_max + 1;
+}
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
-
+  int n; cin >> n;
+  set<int> a;
+  
   for (int i = 0; i < n; ++i)
     {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      int a_i; cin >> a_i;
+      a.insert(a_i);
     }
-
-  sort(all(all_set), greater<int>());
-
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
-
-  cout << answer << "\n";
   
+  cout << Mex(a) << endl;
+
   return 0;
 }

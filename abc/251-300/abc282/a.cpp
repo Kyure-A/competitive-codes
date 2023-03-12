@@ -21,30 +21,21 @@ const long long _MOD = 998244353;
 
 /* ------------------------------  code   ------------------------------ */
 
-// editorial
-
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
+  
+  int k; cin >> k;
 
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
-
-  for (int i = 0; i < n; ++i)
+  vector<char> alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+  
+  for (int i = 0; i < k; ++i)
     {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      cout << alphabet[i];
     }
 
-  sort(all(all_set), greater<int>());
+  cout << "\n";
 
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
-
-  cout << answer << "\n";
-  
   return 0;
 }

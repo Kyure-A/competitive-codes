@@ -18,32 +18,54 @@ using namespace std;
 const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
-
 /* ------------------------------  code   ------------------------------ */
-
-// editorial
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
-
-  for (int i = 0; i < n; ++i)
+  int n, m; cin >> n >> m;
+  
+  vector<int> c(m);
+  vector<vector<int>> s(m);
+  
+  // input
+  for (int i = 0; i < m; ++i)
     {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      cin >> c[i];
+      for (int j = 0; j < c[i]; ++j)
+	{
+	  int a; cin >> a;
+	  s[i].emplace_back(a);
+	}
     }
 
-  sort(all(all_set), greater<int>());
 
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
-
+  int answer = 0;
+  
+  // solve
+  for (int bit = 0; bit < (1 << m); ++bit)
+    {
+      vector<int> hoge(10 + 1, 0);
+      for (int i = 0; i < m; ++i)
+	{
+	  if (bit & (1 << i))
+	    {
+	      for (auto a : s[i])
+		{
+		  hoge[a]++;
+		}
+	    }
+	}
+      
+      bool flag = true;
+      for (int x = 1; x <= n; ++x)
+	{
+	  if (hoge[x] < 1) flag = false;
+	}
+      if (flag) answer++;
+    }
+  
   cout << answer << "\n";
   
   return 0;

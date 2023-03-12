@@ -18,33 +18,35 @@ using namespace std;
 const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
-
 /* ------------------------------  code   ------------------------------ */
-
-// editorial
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
+  vector<vector<int>> a(3, vector<int>(3, false));
+  map<int, pair<int, int>> mp;
+
+  for (int i = 0; i < 3; ++i)
+    {
+      for (int j = 0; j < 3; ++j)
+	{
+	  int a_ij; cin >> a_ij;
+	  a[i][j] = a_ij;
+	  mp[a_ij] = tie(i, j);
+	}
+    }
 
   for (int i = 0; i < n; ++i)
     {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      int b; cin >> b;
+
+      if (mp.count(b) == 1) ;
     }
-
-  sort(all(all_set), greater<int>());
-
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
-
-  cout << answer << "\n";
+  
+  
+  int n; cin >> n;
   
   return 0;
 }

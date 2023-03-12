@@ -21,30 +21,19 @@ const long long _MOD = 998244353;
 
 /* ------------------------------  code   ------------------------------ */
 
-// editorial
-
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
+  
+  int t, l, x, y, q; cin >> t >> l >> x >> y >> q;
 
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
-
-  for (int i = 0; i < n; ++i)
+  for (int i = 1; i <= q; ++i)
     {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      int e; cin >> e;
+
+      
     }
-
-  sort(all(all_set), greater<int>());
-
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
-
-  cout << answer << "\n";
   
   return 0;
 }

@@ -21,28 +21,21 @@ const long long _MOD = 998244353;
 
 /* ------------------------------  code   ------------------------------ */
 
-// editorial
+// editorial ... priority queue を使うらしい
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
-
-  for (int i = 0; i < n; ++i)
-    {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
-    }
-
-  sort(all(all_set), greater<int>());
+  
+  int n, m; cin >> n >> m;
+  priority_queue<int> a; rep(i, n) {int tmp; cin >> tmp; a.emplace(tmp);}
 
   long long answer = 0;
+  
+  rep(i, m) {int a_top = a.top() / 2; a.pop(); a.emplace(a_top);}
 
-  rep(i, k) answer += all_set[i];
+  rep(i, n) {answer += a.top(); a.pop();}
 
   cout << answer << "\n";
   

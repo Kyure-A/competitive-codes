@@ -18,33 +18,21 @@ using namespace std;
 const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
-
 /* ------------------------------  code   ------------------------------ */
-
-// editorial
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
+  long long h, w; cin >> h >> w;
 
-  for (int i = 0; i < n; ++i)
-    {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
-    }
-
-  sort(all(all_set), greater<int>());
-
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
-
-  cout << answer << "\n";
+  long long answer = -1;
+  
+  if (h == 1 or w == 1) answer = 1;
+  else answer = ceil((long double)(h * w) / 2);
+  
+  cout << answer << endl;
   
   return 0;
 }

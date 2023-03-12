@@ -21,28 +21,22 @@ const long long _MOD = 998244353;
 
 /* ------------------------------  code   ------------------------------ */
 
-// editorial
+// editorial 関数（数学）だと思って考えるの、盲点すぎ
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
+  
+  long long a, b; cin >> a >> b;
 
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
+  auto fprime = pow((a / 2 * b), 2 / 3) - 1;
+  long double answer = floor(fprime);
 
-  for (int i = 0; i < n; ++i)
+  for (int i = 0; i < 2; ++i)
     {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      answer = min(answer, ceil(fprime));
     }
-
-  sort(all(all_set), greater<int>());
-
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
 
   cout << answer << "\n";
   

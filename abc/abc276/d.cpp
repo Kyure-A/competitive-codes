@@ -1,26 +1,30 @@
-/* include */
-#include<bits/stdc++.h>
+/* ------------------------------ include ------------------------------ */
+#include <bits/stdc++.h>
+// #include <atcoder/modint>
+// #include <boost/multiprecision/cpp_int.hpp>
+/* ------------------------------  using  ------------------------------ */
 using namespace std;
-// #include<atcoder/all> using namespace atcoder;
-
-/* Macro */
+// using namespace atcoder;
+// using namespace boost::multiprecision;
+/* ------------------------------  define ------------------------------ */
 #define all(container) (container).begin(), (container).end()
 #define ctoi(char) int(char) - 48
 #define rep(i,n) for (int i = 0; (i) < (int)(n); ++ (i))
 #define rep3(i,m,n) for (int i = (m); (i) < (int)(n); ++ (i))
 #define per(i,n) for (int i = (int)(n) - 1; (i) >= 0; -- (i))
 #define per3(i,m,n) for (int i = (int)(n) - 1; (i) >= (int)(m); -- (i))
-
-/* Type */
 // #define int long long
-#define cauto const auto&
-typedef long long i64;
-typedef long double ld;
-
-/* Const */
-const double PI = acos(-1.0);
-const long long  MOD = 1000000007;
-const long long _MOD = 998244353;
+/* ------------------------------ function ------------------------------*/
+template<typename T> inline bool chmax(T &a, T b) { return ((a < b) ? (a = b, true) : (false)); }
+template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, true) : (false)); }
+template<typename T> T lcm(T a, T b) {return a / gcd(a, b) * b;}
+/* ------------------------------  const  ------------------------------ */
+constexpr double PI = acos(-1.0);
+constexpr int dx[4] = {1, 0, -1, 0};
+constexpr int dy[4] = {0, 1, 0, -1};
+constexpr long long  MOD = 1000000007;
+constexpr long long _MOD = 998244353;
+/* ------------------------------   code  ------------------------------ */
 
 namespace inner {
  
@@ -445,10 +449,52 @@ using fast_factorize::is_prime;
 
 signed main ()
 {
-  long long n; cin >> n;
-  vector<long long> factor;
-  factor = fast_factorize::factorize(n);
-  cout << ceil(log2(factor.size())) << "\n";
-    
+  cin.tie(nullptr);
+  ios_base::sync_with_stdio(false);
+
+  int n; cin >> n;
+  vector<multiset<int>> a(n);
+  
+  for (int i = 0; i < n; ++i)
+    {
+      int a_i; cin >> a_i;
+      a[i].insert(1);
+      for (auto factor : fast_factorize::factorize(a_i))
+	{
+	  a[i].insert(factor);
+	}
+    }
+
+  long long count = 0;
+  
+  for (int i = 0; i < n; ++i)
+    {
+      count += a[i].count(2);
+      count += a[i].count(3);
+      a[i].erase(2);
+      a[i].erase(3);
+    }
+
+  bool is_same = true;
+  
+  for (int i = 1; i < n; ++i)
+    {
+      long long product_a_i = accumulate(a[i].begin(), a[i].end(), 1, [](long long acc, long long i)
+      {
+	return acc * i;
+      });
+      
+      long long product_a_i_1 = accumulate(a[i - 1].begin(), a[i - 1].end(), 1, [](long long acc, long long i)
+      {
+	return acc * i;
+      });
+
+      if (product_a_i != product_a_i_1) is_same = false;
+    }
+
+  if (!is_same) count = -1;
+
+  cout << count << endl;
+  
   return 0;
 }

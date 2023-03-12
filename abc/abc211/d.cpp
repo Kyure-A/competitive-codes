@@ -18,33 +18,52 @@ using namespace std;
 const double PI = acos(-1.0);
 const long long  MOD = 1000000007;
 const long long _MOD = 998244353;
-
 /* ------------------------------  code   ------------------------------ */
-
-// editorial
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
-
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
-
-  for (int i = 0; i < n; ++i)
+  int n, m; cin >> n >> m;
+  vector<vector<int>> graph(n + 1);
+  
+  for (int i = 1; i <= m; ++i)
     {
       int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      graph[a].emplace_back(b);
+      graph[b].emplace_back(a);
     }
 
-  sort(all(all_set), greater<int>());
+  vector<int> distance(n + 1, -1); // -1 の場合は未訪問
+  queue<int> que; // first in first out
 
-  long long answer = 0;
+  distance[1] = 0; que.push(1); // 初期化
+  vector<int> count(n + 1, 0);
+  count[1] = 1;
+  
+  // Start
+  while (!que.empty())
+    {
+      auto v = que.front(); que.pop(); // v に実質的に queue の先頭を移動
 
-  rep(i, k) answer += all_set[i];
+      // v に隣接している頂点をすべて調べる
+      for (auto near_v : graph[v])
+	{
+	  if (distance[near_v] == -1)
+	    {
+	      distance[near_v] = distance[v] + 1;
+	      que.push(near_v); // 次に訪れるために追加する
+	      count[near_v] = count[v];
+	    }
+	  else if (distance[near_v] == distance[v] + 1)
+	    {
+	      count[near_v] += count[v];
+	      count[near_v] %= MOD;
+	    }
+	}
+    }
 
-  cout << answer << "\n";
+  cout << count[n] << "\n";
   
   return 0;
 }

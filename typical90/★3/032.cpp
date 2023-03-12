@@ -15,36 +15,24 @@ using namespace std;
 #define per3(i,m,n) for (int i = (int)(n) - 1; (i) >= (int)(m); -- (i))
 // #define int long long
 /* ------------------------------  const  ------------------------------ */
-const double PI = acos(-1.0);
-const long long  MOD = 1000000007;
-const long long _MOD = 998244353;
-
+constexpr double PI = acos(-1.0);
+constexpr long long  MOD = 1000000007;
+constexpr long long _MOD = 998244353;
 /* ------------------------------  code   ------------------------------ */
-
-// editorial
 
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n, k; cin >> n >> k;
-  vector<int> all_set;
-
-  for (int i = 0; i < n; ++i)
+  int n; cin >> n;
+  vector<vector<int>> a(n, vector<int>(n)); rep(i, n) rep(j, n) cin >> a[i][j];
+  int m; cin >> m;
+  do
     {
-      int a, b; cin >> a >> b;
-      all_set.emplace_back(b);
-      all_set.emplace_back(a - b);
+      
     }
-
-  sort(all(all_set), greater<int>());
-
-  long long answer = 0;
-
-  rep(i, k) answer += all_set[i];
-
-  cout << answer << "\n";
+  while (next_permutation(a.begin(), a.end()));
   
   return 0;
 }
