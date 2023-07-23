@@ -32,26 +32,22 @@ signed main ()
   ios_base::sync_with_stdio(false);
 
   int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
+  vector<vector<int>> graph(n + 1);
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
-  
+  for (int i = 1; i < n; ++i)
+    {
+      int u, v; cin >> u >> v;
+      graph[u].push_back(v);
+      graph[v].push_back(u);
+    }
+
+  // レベル k の星には次数が 2 の頂点が k - 1 個存在する
+  set<int> deg2;
+
   for (int i = 0; i < n; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
+      if (graph[i].size() == 2) deg2.emplace(i);
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
-  
   return 0;
 }

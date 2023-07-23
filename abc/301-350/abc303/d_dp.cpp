@@ -31,27 +31,31 @@ signed main ()
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
+  unsigned int x, y, z; cin >> x >> y >> z;
+  string s; cin >> s;
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  int n = s.size();
   
-  for (int i = 0; i < n; ++i)
+  // dp[i: CapsLock キーが押されているか][j 文字目まで] = j 文字目までの S の部分文字列に一致させるのに必要な最短の時間
+  vector<vector<unsigned long long>> dp(2, vector<unsigned long long>(n + 1, 0));
+  dp[0][0] = dp[1][0] = 0;
+  
+  for (int i = 1; i <= n; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
+      if (s[i - 1] == 'A')
 	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
+	  dp[0][i] = min(dp[0][i - 1] + y, dp[1][i - 1] + (x + z));
+	  dp[1][i] = min(dp[1][i - 1] + x, dp[0][i - 1] + (y + z));
+	}
+
+      if (s[i - 1] == 'a')
+	{
+	  dp[0][i] = min(dp[0][i - 1] + x, dp[1][i - 1] + (y + z));
+	  dp[1][i] = min(dp[1][i - 1] + y, dp[0][i - 1] + (x + z));
 	}
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
-  
+  cout << min(dp[0][n], dp[1][n]) << endl;
+
   return 0;
 }

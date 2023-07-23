@@ -26,32 +26,36 @@ constexpr long long  MOD = 1000000007;
 constexpr long long _MOD = 998244353;
 /* ------------------------------   code  ------------------------------ */
 
+// やることないからナイーブな解法を出して茶を濁します．
+// ARC 003 C(https://atcoder.jp/contests/arc033/tasks/arc033_3) が似たような感じ（i 番目に大きいものを k 個求めればこの問題になる）
+// だなあと思ったけれど，セグ木でやっても O(QKlog(N)) までしか削減できないため，Q = K = 10^5 みたいなケースで計算量が爆発四散する
+
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
-
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  int n, k, q; cin >> n >> k >> q;
+  vector<long long> a(n, 0);
   
-  for (int i = 0; i < n; ++i)
+  while (q--)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
+      int x, y; cin >> x >> y;
+      x--;
+      
+      a[x] = y;
+      
+      auto b = a;
+      sort(b.begin(), b.end(), greater<int>());
+      
+      long long sum = 0;
+      
+      for (int i = 0; i < k; ++i) sum += b[i];
+
+      cout << sum << endl;
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
   
+
   return 0;
 }

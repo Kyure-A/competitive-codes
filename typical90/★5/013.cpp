@@ -83,21 +83,24 @@ signed main ()
   ios_base::sync_with_stdio(false);
 
   int n, m; cin >> n >> m;
-  vector<vector<Edge>> graph(n + 1);
+  Graph graph(n);
 
   for (int i = 0; i < m; ++i)
     {
       int a, b, c; cin >> a >> b >> c;
+      a--; b--;
       graph[a].push_back({b, c});
+      graph[b].push_back({a, c});
     }
 
-  vector<long long> distance(n + 1, INF);
+  vector<long long> from_1(n, INF);
+  vector<long long> from_n(n, INF);
+  Dijkstra(graph, from_1, 0);
+  Dijkstra(graph, from_n, n - 1);
 
-  Dijkstra(graph, distance, 1);
-
-  for (int i = 1; i <= n; ++i)
+  for (int i = 0; i < n; ++i)
     {
-      cout << distance[i] << endl;
+      cout << from_1[i] + from_n[i] << endl;
     }
   
   return 0;

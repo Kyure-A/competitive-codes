@@ -32,26 +32,20 @@ signed main ()
   ios_base::sync_with_stdio(false);
 
   int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
+  vector<long double> a(n), b(n); rep(i, n) cin >> a[i] >> b[i];
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  set<pair<long double, long double>, greater<pair<long double, long double>>> st;
   
   for (int i = 0; i < n; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
+      long double seikou = a[i] / (a[i] + b[i]);
+      st.insert({seikou, -(i + 1)});
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
+  for (auto x : st)
     {
-      cout << s[i % n] << endl;
+      cout << -(x.second) << " ";
     }
-  
+
   return 0;
 }

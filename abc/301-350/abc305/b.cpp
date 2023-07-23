@@ -31,27 +31,23 @@ signed main ()
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
-
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  char p, q; cin >> p >> q;
+  if (q < p) swap(p, q);
   
-  for (int i = 0; i < n; ++i)
-    {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
-    }
-
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
+  int distance = 0;
   
+  while (!(p == q)) {
+    if (p == 'A') distance += 3;
+    if (p == 'B') distance += 1;
+    if (p == 'C') distance += 4;
+    if (p == 'D') distance += 1;
+    if (p == 'E') distance += 5;
+    if (p == 'F') distance += 9;
+
+    p++;
+  }
+
+  cout << distance << endl;
+
   return 0;
 }

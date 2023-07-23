@@ -31,27 +31,35 @@ signed main ()
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
-
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  struct dish {
+    long long poisonuous;
+    long long deliciousness;
+  };
   
-  for (int i = 0; i < n; ++i)
+  int n; cin >> n;
+  vector<dish> course(n + 1); rep(i, n) cin >> course[i + 1].poisonuous >> course[i + 1].deliciousness;
+
+  // dp[i: 高橋くんがお腹を壊しているか][j: 高橋くんが提供された j 番目までの料理] = j 番目までの料理の中で食べた料理の美味しさの総和
+  vector<vector<long long>> dp(2, vector<long long>(n + 1, 0));
+  dp[0][0] = 0; dp[1][0] = 0;
+  
+  for (int i = 1; i <= n; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
+      dp[0][i] = dp[0][i - 1];
+      dp[1][i] = dp[1][i - 1];
+      
+      if (course[i].poisonuous == 0)
 	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
+	  dp[0][i] = max(dp[0][i - 1], max(dp[0][i - 1] + course[i].deliciousness, dp[1][i - 1] + course[i].deliciousness));
+	}
+
+      if (course[i].poisonuous == 1)
+	{
+	  dp[1][i] = max(dp[1][i - 1], dp[0][i - 1] + course[i].deliciousness);
 	}
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
+  cout << max(dp[0][n], dp[1][n]) << endl;
   
   return 0;
 }

@@ -31,27 +31,27 @@ signed main ()
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
+  int n, m; cin >> n >> m;
+  vector<string> c(n); rep(i, n) cin >> c[i];
+  vector<string> d(m); rep(i, m) cin >> d[i];
+  vector<int> p(m + 1); rep(i, m + 1) cin >> p[i];
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  map<string, int> mp;
+
+  for (int i = 0; i < m; ++i)
+    {
+      mp[d[i]] = p[i + 1];
+    }
+
+  int answer = 0;
   
   for (int i = 0; i < n; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
+      if (mp.count(c[i]) != 0) answer += mp[c[i]];
+      else answer += p[0];
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
-  
+  cout << answer << endl;
+
   return 0;
 }

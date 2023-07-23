@@ -32,26 +32,24 @@ signed main ()
   ios_base::sync_with_stdio(false);
 
   int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
-
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  vector<int> a(3 * n); rep(i, 3 * n) cin >> a[i];
   
-  for (int i = 0; i < n; ++i)
+  vector<set<int>> st(n + 1);
+  for (int i = 0; i < 3 * n; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
+      st[a[i]].insert(i + 1);
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
+  set<pair<int, int>> f;
+
+  for (int i = 1; i <= n; ++i)
     {
-      cout << s[i % n] << endl;
+      auto iter = st[i].begin();
+      iter++;
+      f.insert({*iter, i});
     }
+  
+  for (auto x : f) cout << x.second << " ";
   
   return 0;
 }

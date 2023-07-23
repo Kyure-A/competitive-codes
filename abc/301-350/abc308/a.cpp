@@ -31,27 +31,21 @@ signed main ()
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
+  vector<int> s(8); rep(i, 8) cin >> s[i];
+  bool flag = true;
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  if (s[0] % 25 != 0) flag = false;
+  if (!(100 <= s[0] and s[0] <= 675)) flag = false;
   
-  for (int i = 0; i < n; ++i)
+  for (int i = 1; i < 8; i++)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
+      if (s[i - 1] > s[i]) flag = false;
+      
+      if (s[i] % 25 != 0) flag = false;
+
+      if (!(100 <= s[i] and s[i] <= 675)) flag = false;
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
-  
-  return 0;
+  if (flag) cout << "Yes" << endl;
+  else cout << "No" << endl;
 }

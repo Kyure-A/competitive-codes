@@ -26,32 +26,59 @@ constexpr long long  MOD = 1000000007;
 constexpr long long _MOD = 998244353;
 /* ------------------------------   code  ------------------------------ */
 
+template <typename T>
+struct BIT {
+  int n;             // 要素数
+  vector<T> bit[2];  // データの格納先
+  BIT(int n_) { init(n_); }
+  void init(int n_) {
+    n = n_ + 1;
+    for (int p = 0; p < 2; p++) bit[p].assign(n, 0);
+  }
+  void add_sub(int p, int i, T x) {
+    for (int idx = i; idx < n; idx += (idx & -idx)) {
+      bit[p][idx] += x;
+    }
+  }
+  void add(int l, int r, T x) {  // [l,r) に加算
+    add_sub(0, l, -x * (l - 1));
+    add_sub(0, r, x * (r - 1));
+    add_sub(1, l, x);
+    add_sub(1, r, -x);
+  }
+  T sum_sub(int p, int i) {
+    T s(0);
+    for (int idx = i; idx > 0; idx -= (idx & -idx)) {
+      s += bit[p][idx];
+    }
+    return s;
+  }
+  T sum(int i) { return sum_sub(0, i) + sum_sub(1, i) * i; }
+};
+
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
   int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
+  vector<int> a(n); rep(i, n) cin >> a[i];
+  BIT<long long> bit(1e6);
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
-  
-  for (int i = 0; i < n; ++i)
+  for (int i = 1; i <= (n - 1) / 2; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
-    }
-
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
+      int l = a[2 * i - 1];
+      int r = a[2 * i];
+      bit.add(l, r + 1, 1ll);
     }
   
+  int q; cin >> q;
+
+  while (q--)
+    {
+      int l, r; cin >> l >> r;
+      cout << bit.sum(r) - bit.sum(l) << endl;
+    }
+
   return 0;
 }

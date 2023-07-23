@@ -26,32 +26,58 @@ constexpr long long  MOD = 1000000007;
 constexpr long long _MOD = 998244353;
 /* ------------------------------   code  ------------------------------ */
 
-signed main ()
-{
-  cin.tie(nullptr);
-  ios_base::sync_with_stdio(false);
+int h, w;
+vector<string> grid;
+vector<vector<bool>> visited;
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
-
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+bool dfs(int i, int j, int t) {
   
-  for (int i = 0; i < n; ++i)
+  char predict = "snuke"[t % 5];
+  
+  if (i == h - 1 and j == w - 1)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
-    }
-
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
+      if (predict == grid[i][j]) return true;
+      else return false;
     }
   
+  visited[i][j] = true;
+
+  int di[4] = {-1, 1, 0, 0};
+  int dj[4] = {0, 0, -1, 1};
+
+  for (int k = 0; k < 4; k++) {
+    int ni = i + di[k];
+    int nj = j + dj[k];
+
+    if (grid[ni][nj] != predict) continue;
+    
+    if (0 <= ni and ni < h and 0 <= nj and nj < w and !visited[ni][nj])
+      {
+	if (dfs(ni, nj, t + 1)) return true;
+      }
+  }
+
+  visited[i][j] = false;  // バックトラック
+
+  return false;
+}
+
+signed main() {
+  
+  cin >> h >> w;
+
+  grid.resize(h);
+  for (int i = 0; i < h; i++)
+    {
+      cin >> grid[i];
+    }
+
+  visited.resize(h, vector<bool>(w, false));
+
+  if (dfs(0, 0, 0)) cout << "Yes" << endl;
+  
+  else cout << "No" << endl;
+   
+
   return 0;
 }

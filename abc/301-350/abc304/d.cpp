@@ -31,27 +31,23 @@ signed main ()
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
+  int w, h; cin >> w >> h;
   int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
+  vector<pair<int, int>> strawberry(n); rep(i, n) cin >> strawberry[i].first >> strawberry[i].second;
+  int A; cin >> A;
+  vector<int> a(A); rep(i, A) cin >> a[i];
+  int B; cin >> B;
+  vector<int> b(B); rep(i, B) cin >> b[i];
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
-  
-  for (int i = 0; i < n; ++i)
+
+  // binary_search
+
+  int left = -1, right = (int)strawberry.size();
+
+  while (abs(right - left) > 1)
     {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
+      int mid = (left + right) / 2;
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
-  
   return 0;
 }

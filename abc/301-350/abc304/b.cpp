@@ -32,26 +32,14 @@ signed main ()
   ios_base::sync_with_stdio(false);
 
   int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
 
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
-  
-  for (int i = 0; i < n; ++i)
-    {
-      if (min(min_age, a[i]) == a[i])
-	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
-	}
-    }
+  if (n <= 1000 - 1) cout << n << endl;
+  else if (n <= 10000 - 1) cout << floor(n / 10) * 10 << endl;
+  else if (n <= 100000 - 1) cout << floor(n / 100) * 100 << endl;
+  else if (n <= 1000000 - 1) cout << floor(n / 1000) * 1000 << endl;
+  else if (n <= 10000000 - 1) cout << floor(n / 10000) * 10000 << endl;
+  else if (n <= 100000000 - 1) cout << floor(n / 100000) * 100000 << endl;
+  else if (n <= 1000000000 - 1) cout << floor(n / 1000000) * 1000000 << endl;
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
-    {
-      cout << s[i % n] << endl;
-    }
-  
   return 0;
 }

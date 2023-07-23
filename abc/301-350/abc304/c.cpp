@@ -26,32 +26,63 @@ constexpr long long  MOD = 1000000007;
 constexpr long long _MOD = 998244353;
 /* ------------------------------   code  ------------------------------ */
 
+long double euclidian_distance(pair<int, int> a, pair<int, int> b)
+{
+  return sqrt(pow(a.first - b.first, 2) + pow(a.second - b.second, 2));
+}
+
 signed main ()
 {
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
-
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  int n; long double d; cin >> n >> d;
+  vector<pair<int, int>> people(n); rep(i, n) cin >> people[i].first >> people[i].second;
+  vector<bool> is_infected(n);
+  is_infected[0] = true;
+  vector<vector<int>> nexttopeople(n);
   
   for (int i = 0; i < n; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
+      for (int j = 0; j < n; ++j)
 	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
+	  if (i == j) continue;
+	  
+	  if (euclidian_distance(people[i], people[j]) <= d)
+	    {
+	      nexttopeople[i].push_back(j);
+	      nexttopeople[j].push_back(i);
+	    }
 	}
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
+  // 1-indexed
+
+  stack<int> stk; // last in first out
+  stk.emplace(0);
+  vector<bool> seen(n, false);
+  seen[0] = true;
+  
+  // Start
+  while (!stk.empty())
     {
-      cout << s[i % n] << endl;
+      auto v = stk.top(); stk.pop(); // v に実質的に stack の一番上を移動
+
+      // v に隣接している頂点をすべて調べる
+      for (auto near_v : nexttopeople[v])
+	{
+	  if (seen[near_v]) continue; 
+	  is_infected[near_v] = true;
+	  seen[near_v] = true;
+	  stk.emplace(near_v); // 次に訪れるために追加する
+	}
     }
   
+  for (int i = 0; i < n; ++i)
+    {
+      if (is_infected[i]) cout << "Yes" << endl;
+      else cout << "No" << endl;
+    }
+
   return 0;
 }

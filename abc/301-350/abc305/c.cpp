@@ -31,27 +31,41 @@ signed main ()
   cin.tie(nullptr);
   ios_base::sync_with_stdio(false);
 
-  int n; cin >> n;
-  vector<string> s(n);
-  vector<long long> a(n);
-  rep(i, n) cin >> s[i] >> a[i];
-
-  long long min_age = 1e10;
-  pair<long long, long long> min_player = {-1, min_age};
+  int h, w; cin >> h >> w;
+  vector<string> s(h); rep(i, h) cin >> s[i];
   
-  for (int i = 0; i < n; ++i)
+  set<pair<int, int>> width_cookies;
+  set<pair<int, int>> height_cookies;
+  pair<int, int> lack_cookie;
+  
+  for (int i = 0; i < h; ++i)
     {
-      if (min(min_age, a[i]) == a[i])
+      int temp_cookies = 0;
+      for (int j = 0; j < w; ++j)
 	{
-	  min_age = a[i];
-	  min_player = {i, min_age};
+	  if (s[i][j] == '#') temp_cookies++;
 	}
+      
+      if (temp_cookies != 0) width_cookies.insert({temp_cookies, i});
     }
 
-  for (int i = min_player.first; i < min_player.first + n; ++i)
+  for (int j = 0; j < w; ++j)
     {
-      cout << s[i % n] << endl;
+      int temp_cookies = 0;
+      for (int i = 0; i < h; ++i)
+	{
+	  if (s[i][j] == '#') temp_cookies++;
+	}
+      
+      if (temp_cookies != 0) height_cookies.insert({temp_cookies, j});
     }
+
+  pair<int, int> height = *height_cookies.begin();
+  pair<int, int> width = *width_cookies.begin();
+  
+  lack_cookie = {width.second + 1, height.second + 1};
+
+  cout << lack_cookie.first << " " << lack_cookie.second << endl;
   
   return 0;
 }
