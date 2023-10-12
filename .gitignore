@@ -1,3 +1,3 @@
 .ccls
 .ccls-cache
-*.out
+./*.out
